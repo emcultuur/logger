@@ -1,0 +1,17 @@
+{
+  "name": "logger",
+  "version": "0.0.1",
+  "description": "Log information to memory",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --expose-internals ./node_modules/.bin/mocha $(find lib -name '*spec.js') --exit --recursive"
+  },
+  "keywords": [],
+  "author": "Jaap van der Kreeft",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "nyc": "^14.1.1"
+  }
+}
