@@ -14,25 +14,22 @@ class Logger {
   error(fieldName, msg) {
     if (this._toConsole) {
       console.error(fieldName, msg);
-    } else {
-      this._history.push({type: 'error', fieldName: fieldName, message: msg})
     }
+    this._history.push({type: 'error', fieldName: fieldName, message: msg})
   }
 
   warn(fieldName, msg) {
     if (this._toConsole) {
       console.warn(fieldName, msg);
-    } else {
-      this._history.push({type: 'warn', fieldName: fieldName, message: msg})
     }
+    this._history.push({type: 'warn', fieldName: fieldName, message: msg})
   }
 
   info(fieldName, msg) {
     if (this._toConsole) {
       console.info(fieldName, msg);
-    } else {
-      this._history.push({type: 'info', fieldName: fieldName, message: msg})
     }
+    this._history.push({type: 'info', fieldName: fieldName, message: msg})
   }
 
   get errors() {
