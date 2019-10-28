@@ -1,6 +1,6 @@
 {
   "name": "logger",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Log information to memory",
   "main": "index.js",
   "scripts": {
@@ -13,5 +13,9 @@
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
     "nyc": "^14.1.1"
+  },
+  "dependencies": {
+    "winston": "^3.2.1",
+    "winston-loggly-bulk": "^3.0.1"
   }
 }
