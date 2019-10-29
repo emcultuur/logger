@@ -83,7 +83,10 @@ let logger = new LogWinston({ transports: [loggly]})
 ```
 
 ###slack
-Write the information to a slack channel
+Write the information to a slack channel.
+
+[How to create a Slack webhook](https://api.slack.com/messaging/webhooks)
+
 properties:
 - level => what level to write (debug, info, warn, error)
 - url => the webhook url of the slack channel
