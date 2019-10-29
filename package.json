@@ -1,6 +1,6 @@
 {
   "name": "logger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Log information to memory",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "winston": "^3.2.1",
-    "winston-loggly-bulk": "^3.0.1"
+    "winston-loggly-bulk": "^3.0.1",
+    "winston-mail": "^2.0.0",
+    "winston-slack-webhook-transport": "^1.1.0"
   }
 }

@@ -56,7 +56,20 @@ describe('log-winston', () => {
     });
     log.info('start', 'some info');
     log.error('error', 'hot line');
+  });
 
+  // https://hooks.slack.com/services/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
+  it('to slack', () => {
+    let log = new LogWinston({
+      transports: [
+        {
+          type: 'slack',
+          url: 'https://hooks.slack.com/services/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',
+        }
+      ]
+    });
+    log.info('start', 'some info');
+    log.error('error', 'hot line');
   })
 
 });
