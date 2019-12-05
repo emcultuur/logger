@@ -51,8 +51,18 @@ describe('logger',  () => {
     assert(log.log.length === 1, 'has one');
     log.clear();
     assert(log.log.length === 0, 'empty');
-  })
+  });
 
+  it('execption', () => {
+    let logDev = new Logger({toConsole: false, develop: true});
+    let log = new Logger({toConsole: false});
+    // should NOT write to console
+    log.exception(new Error('some is wrong'))
+    assert(log.errors.length === 1, 'has one');
+    // should write to console
+    logDev.exception(new Error('some is wrong'))
+    assert(log.errors.length === 1, 'has one');
+  })
 
 
 });

@@ -99,6 +99,9 @@ class LogWinston extends Logger {
       }
     }
   }
+  exception(err, msg) {
+
+  }
   error(fieldName, msg) {
     this._log('error', fieldName, msg);
   }

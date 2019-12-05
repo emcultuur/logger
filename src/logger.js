@@ -9,6 +9,22 @@ class Logger {
   constructor(options = {}) {
     this._toConsole = options.toConsole !== undefined ? !!options.toConsole : true;
     this._history = [];
+    this._develop = options.develop === undefined ? false : !!options.develop;
+  }
+
+  get develop() {
+    return this.develop;
+  }
+
+  set develop(mode) {
+    this._develop = !!mode;
+  }
+
+  exception(err, msg) {
+    this.error('exception', msg)
+    if (this._develop) {
+      console.error(err);
+    }
   }
 
   error(fieldName, msg) {
