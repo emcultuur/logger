@@ -1,4 +1,5 @@
-#Logger
+# Logger
+
 version: 0.2
 
 To log exception the log.exception(error, msg is added);
@@ -19,7 +20,7 @@ In production the exception are not send to the console. To send the info to the
        ]})
 ```
 
-#LogWinston
+# LogWinston
 
 ```javascript
 const Logger = require('LogWinston');
