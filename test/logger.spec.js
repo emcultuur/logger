@@ -57,10 +57,10 @@ describe('logger',  () => {
     let logDev = new Logger({toConsole: false, develop: true});
     let log = new Logger({toConsole: false});
     // should NOT write to console
-    log.exception(new Error('some is wrong'))
+    log.exception(new Error('some is wrong'));
     assert(log.errors.length === 1, 'has one');
-    // should write to console
-    logDev.exception(new Error('some is wrong'))
+   console.log('>>>>> should write an error to console');
+    logDev.exception(new Error('some is wrong'));
     assert(log.errors.length === 1, 'has one');
   })
 

@@ -1,4 +1,23 @@
 #Logger
+version: 0.2
+
+To log exception the log.exception(error, msg is added);
+In production the exception are not send to the console. To send the info to the console use:
+```javascript
+    const Logger = require('logger');
+    
+    let log = new Logger({develop: true});
+    // or in winston
+    const WinstonLogger = require('LogWinston');   
+    let lw = new WinstonLogger({
+      develop: true, 
+      transports:[
+         {
+           type: 'console',
+           level: 'info'  
+         } 
+       ]})
+```
 
 #LogWinston
 
