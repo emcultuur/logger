@@ -8,8 +8,8 @@ const Mail = require('winston-mail');
 class LogWinston extends Logger {
 
   constructor(options) {
-    options.toConsole = false;
     super(options);
+    this._toConsole = false
     let transports = [];
     if (options.transports) {
       for (let l = 0; l < options.transports.length; l++) {
