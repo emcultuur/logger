@@ -99,10 +99,10 @@ class LogWinston extends Logger {
       }
     }
   }
-  exception(err, msg) {
-    this._log('error', fieldName, msg);
+  exception(error, msg) {
+    this._log('error', 'execption',  msg);
     if (this._develop) {
-      console.error(err);
+      console.error(error);
     }
   }
   error(fieldName, msg) {
