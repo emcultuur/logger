@@ -91,7 +91,7 @@ class LogWinston extends Logger {
     return this._logger;
   }
   _log(what, fieldName, msg) {
-    this.logger.log(what, `${fieldName} ${msg ? ' - ' + msg : ''}`);
+    this.logger.log(what, `${fieldName} ${msg !== undefined ? ' - ' + msg : ''}`);
     if (this._maxMessage) {
       super.error(fieldName, msg);
       if (this._maxMessage < this.log.length) {
