@@ -4,8 +4,9 @@
  * Does nothing but save the trouble for checking is the logging is active
  * version 0.0.1  Jay 2020-01-18
  */
+const Logger = require('./logger');
 
-class LogFake extends Logger {
+class LoggerFake extends Logger {
 
 
   exception(err, msg) {
