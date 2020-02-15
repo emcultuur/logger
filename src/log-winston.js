@@ -4,9 +4,16 @@ const Winston = require('winston');
 const {Loggly} = require('winston-loggly-bulk');
 const SlackHook = require("winston-slack-webhook-transport");
 const Mail = require('winston-mail');
+const Path = require('path');
 
 class LogWinston extends Logger {
 
+  /**
+   * extra:
+   *
+   * @param options
+   *    -- rootDirectory string the root directory where the logs are stored
+   */
   constructor(options) {
     super(options);
     this._toConsole = false
@@ -32,9 +39,10 @@ class LogWinston extends Logger {
             if (trans.filename === undefined) {
               throw new Error(`missing filename for file[${l}'`);
             }
+            let filename =  (options.rootDirectory && trans.filename[0] !== '/') ? Path.join(options.rootDirectory, trans.filename) : trans.filename;
             transports.push(new Winston.transports.File({
               level: trans.level === undefined ? 'info' : trans.level,
-              filename: trans.filename
+              filename: filename
             }));
             break;
           case 'loggly':
