@@ -70,6 +70,24 @@ describe('log-winston', () => {
     });
     log.info('start', 'some info');
     log.error('error', 'hot line');
-  })
+  });
+
+
+
+  it('has a decorator', () => {
+    let log = new LogWinston({
+      transports: [
+        {
+          type: 'memory'
+        }
+      ],
+      decorator: (msg) => {
+        return 'yes it worked';
+      }
+    });
+    log.info('some info');
+    assert.isTrue(log.hasMessages(), 'did store something');
+    assert.equal(log.log[0].message, 'yes it worked', 'did change the message');
+  });
 
 });

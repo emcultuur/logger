@@ -10,8 +10,13 @@ class Logger {
     this._toConsole = options.toConsole !== undefined ? !!options.toConsole : true;
     this._history = [];
     this._develop = options.develop === undefined ? false : !!options.develop;
+    // function to decorate the text written to the log. For linenumber etc
+    this._decorator = options.decorator;
   }
 
+  get decorator() {
+    return this._decorator;
+  }
   get develop() {
     return this.develop;
   }
@@ -31,21 +36,21 @@ class Logger {
     if (this._toConsole) {
       console.error(fieldName, msg);
     }
-    this._history.push({type: 'error', fieldName: fieldName, message: msg})
+    this._history.push({type: 'error', fieldName: fieldName, message: this.decorator ? this.decorator(msg) : msg})
   }
 
   warn(fieldName, msg) {
     if (this._toConsole) {
       console.warn(fieldName, msg);
     }
-    this._history.push({type: 'warn', fieldName: fieldName, message: msg})
+    this._history.push({type: 'warn', fieldName: fieldName, message: this.decorator ? this.decorator(msg) : msg})
   }
 
   info(fieldName, msg) {
     if (this._toConsole) {
       console.info(fieldName, msg);
     }
-    this._history.push({type: 'info', fieldName: fieldName, message: msg})
+    this._history.push({type: 'info', fieldName: fieldName, message: this.decorator ? this.decorator(msg) : msg})
   }
 
   get errors() {

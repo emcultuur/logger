@@ -1,6 +1,6 @@
 # Logger
 
-version: 0.2
+version: 0.4
 
 To log exception the log.exception(error, msg is added);
 In production the exception are not send to the console. To send the info to the console use:
@@ -19,6 +19,22 @@ In production the exception are not send to the console. To send the info to the
          } 
        ]})
 ```
+
+# Decorator
+To adjust the message store, a decorator can be used. The decorator is declared as:
+```javascript
+const Logger = require('LogWinston');
+
+let log = new Logger({ transports:[
+    {
+      type: 'console',
+      level: 'info'  
+    }
+  ],
+  decorator: (msg) => { return 'the message was: ' + msg } 
+})
+```
+
 
 # LogWinston
 

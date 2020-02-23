@@ -29,6 +29,10 @@ class LogWinston extends Logger {
         }
 
         switch (trans.type) {
+          case 'memory':
+            this._sendParent = true;
+            // do nothing
+            break;
           case 'console':
             transports.push(new Winston.transports.Console({
               level: trans.level === undefined ? 'info' : trans.level,
@@ -89,9 +93,11 @@ class LogWinston extends Logger {
         }
       }
     }
-    this.logger = Winston.createLogger({
-      transports
-    });
+    if (transports.length) {
+      this.logger = Winston.createLogger({
+        transports
+      });
+    }
     this._maxMessage = options.maxMessage === undefined ? 0 : options.maxMessage;
   }
 
@@ -99,7 +105,16 @@ class LogWinston extends Logger {
     return this._logger;
   }
   _log(what, fieldName, msg) {
-    this.logger.log(what, `${fieldName} ${msg !== undefined ? ' - ' + msg : ''}`);
+    let message = `${fieldName} ${msg !== undefined ? ' - ' + msg : ''}`.trim();
+    if (this.decorator) {
+      message = this.decorator(message);
+    }
+    if (this.logger) {
+      this.logger.log(what, message);
+    }
+    if (this._sendParent) {
+      super[what]('', fieldName, msg);
+    }
     if (this._maxMessage) {
       super.error(fieldName, msg);
       if (this._maxMessage < this.log.length) {
