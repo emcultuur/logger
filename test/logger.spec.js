@@ -62,6 +62,19 @@ describe('logger',  () => {
    console.log('>>>>> should write an error to console. Do if you see the error, its ok');
     logDev.exception(new Error('some is wrong'));
     assert(log.errors.length === 1, 'has one');
+  });
+
+  it('pipe', () => {
+    let log1 = new Logger({toConsole: false});
+    let log = new Logger({toConsole: false, pipe: log1});
+    log.info('some field', 'what');
+    assert.equal(log1.log.length, 1, 'has one message');
+    assert.equal(log.log.length, 1, 'has one message');
+    log.pipe = false;
+    log.info('some field', 'some more');
+    assert.equal(log1.log.length, 1, 'has one message');
+    assert.equal(log.log.length, 2, 'has two message');
+
   })
 
 

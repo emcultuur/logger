@@ -94,27 +94,30 @@ class LogWinston extends Logger {
       }
     }
     if (transports.length) {
-      this.logger = Winston.createLogger({
+      this._winston = Winston.createLogger({
         transports
       });
     }
     this._maxMessage = options.maxMessage === undefined ? 0 : options.maxMessage;
   }
 
-  get winston() {
-    return this._logger;
-  }
+  // get winston() {
+  //   return this._logger;
+  // }
+  //
   _log(what, fieldName, msg) {
     let message = `${fieldName} ${msg !== undefined ? ' - ' + msg : ''}`.trim();
     if (this.decorator) {
       message = this.decorator(message, {type: what});
     }
-    if (this.logger) {
-      this.logger.log(what, message);
-    }
-    if (this._sendParent) {
+    if (this._winston) {
+      this._winston.log(what, message);
+    } else  if (this._sendParent) {
       super[what]('', fieldName, msg);
+    } else {
+      this.checkPipe(what, fieldName, msg);
     }
+
     if (this._maxMessage) {
       super.error(fieldName, msg);
       if (this._maxMessage < this.log.length) {

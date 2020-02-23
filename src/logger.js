@@ -12,6 +12,8 @@ class Logger {
     this._develop = options.develop === undefined ? false : !!options.develop;
     // function to decorate the text written to the log. For linenumber etc
     this._decorator = options.decorator;
+    // connect multiple logger so we can have global and local logging
+    this._pipe = options.pipe;
   }
 
   get decorator() {
@@ -29,8 +31,19 @@ class Logger {
     this._develop = !!mode;
   }
 
+  get pipe() {
+    return this._pipe;
+  }
+  set pipe(value) {
+    this._pipe = value;
+  }
+  checkPipe(type, fieldName, msg) {
+    if (this._pipe) {
+      this._pipe[type](fieldName, msg);
+    }
+  }
   exception(err, msg) {
-    this.error('exception', msg)
+    this.error('exception', msg);
     if (this._develop) {
       console.error(err);
     }
@@ -41,6 +54,7 @@ class Logger {
       console.error(fieldName, msg);
     }
     this._history.push({type: 'error', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'error'}) : msg})
+    this.checkPipe('error', fieldName, msg)
   }
 
   warn(fieldName, msg) {
@@ -48,6 +62,7 @@ class Logger {
       console.warn(fieldName, msg);
     }
     this._history.push({type: 'warn', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'warn'}) : msg})
+    this.checkPipe('warn', fieldName, msg)
   }
 
   info(fieldName, msg) {
@@ -55,6 +70,7 @@ class Logger {
       console.info(fieldName, msg);
     }
     this._history.push({type: 'info', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'info'}) : msg})
+    this.checkPipe('info', fieldName, msg)
   }
 
   get errors() {
@@ -83,6 +99,8 @@ class Logger {
   clear() {
     this._history = [];
   }
+
+
 }
 
 module.exports = Logger;
