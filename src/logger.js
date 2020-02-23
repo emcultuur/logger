@@ -40,21 +40,21 @@ class Logger {
     if (this._toConsole) {
       console.error(fieldName, msg);
     }
-    this._history.push({type: 'error', fieldName: fieldName, message: this.decorator ? this.decorator(msg) : msg})
+    this._history.push({type: 'error', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'error'}) : msg})
   }
 
   warn(fieldName, msg) {
     if (this._toConsole) {
       console.warn(fieldName, msg);
     }
-    this._history.push({type: 'warn', fieldName: fieldName, message: this.decorator ? this.decorator(msg) : msg})
+    this._history.push({type: 'warn', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'warn'}) : msg})
   }
 
   info(fieldName, msg) {
     if (this._toConsole) {
       console.info(fieldName, msg);
     }
-    this._history.push({type: 'info', fieldName: fieldName, message: this.decorator ? this.decorator(msg) : msg})
+    this._history.push({type: 'info', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'info'}) : msg})
   }
 
   get errors() {

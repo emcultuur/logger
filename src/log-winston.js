@@ -107,7 +107,7 @@ class LogWinston extends Logger {
   _log(what, fieldName, msg) {
     let message = `${fieldName} ${msg !== undefined ? ' - ' + msg : ''}`.trim();
     if (this.decorator) {
-      message = this.decorator(message);
+      message = this.decorator(message, {type: what});
     }
     if (this.logger) {
       this.logger.log(what, message);
