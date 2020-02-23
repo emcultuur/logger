@@ -17,6 +17,10 @@ class Logger {
   get decorator() {
     return this._decorator;
   }
+  set decorator(value) {
+    this._decorator = value;
+  }
+
   get develop() {
     return this.develop;
   }
