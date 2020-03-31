@@ -7,7 +7,7 @@
     "test": "node --expose-internals ./node_modules/.bin/mocha $(find lib -name '*spec.js') --exit --recursive"
   },
   "keywords": [],
-  "author": "Jaap van der Kreeft",
+  "author": "Jay Mc Anser",
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
