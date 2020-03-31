@@ -81,7 +81,7 @@ let cons = {
 let logger = new LogWinston({ transports: [cons]})
 ```
 
-###file
+### file
 Write the information to a file.
 properties:
 - level => what level to write (debug, info, warn, error)
@@ -97,7 +97,7 @@ let file = {
 let logger = new LogWinston({ transports: [file]})
 ```
 
-###loggly
+### loggly
 Write the information to a file.
 properties:
 - level => what level to write (debug, info, warn, error)
@@ -118,7 +118,7 @@ let loggly = {
 let logger = new LogWinston({ transports: [loggly]})
 ```
 
-###slack
+### slack
 Write the information to a slack channel.
 
 [How to create a Slack webhook](https://api.slack.com/messaging/webhooks)
@@ -142,7 +142,7 @@ let logger = new LogWinston({ transports: [slack]})
 ```
 
 
-###mail
+### mail
 Send a mail when logging
 properties:
 - level => what level to write (debug, info, warn, error)
@@ -169,7 +169,7 @@ let mail = {
 let logger = new LogWinston({ transports: [mail]})
 ```
 
-##License
+## License
 MIT
 
 &copy; 2019-2020 EM-Cultuur
