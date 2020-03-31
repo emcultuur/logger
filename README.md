@@ -172,4 +172,4 @@ let logger = new LogWinston({ transports: [mail]})
 ##License
 MIT
 
-&copy; 2019 EM-Cultuur
+&copy; 2019-2020 EM-Cultuur
