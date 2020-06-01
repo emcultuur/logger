@@ -16,6 +16,12 @@ class Logger {
     this._pipe = options.pipe;
   }
 
+  get toConsole() {
+    return this._toConsole;
+  }
+  set toConsole(value) {
+    this._toConsole = !! value;
+  }
   get decorator() {
     return this._decorator;
   }
