@@ -97,7 +97,7 @@ class Logger {
   get infos() {
     return this._history.filter( (log) => log.type === 'info') ;
   }
-  get trace() {
+  get traces() {
     return this._history.filter( (log) => log.type === 'trace');
   }
 
