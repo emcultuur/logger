@@ -8,7 +8,7 @@ class Logger {
 
   constructor(options = {}) {
     this._toConsole = options.toConsole !== undefined ? !!options.toConsole : true;
-    this._showTrace = options.hasOwnProperty('showTrace') ? !!options.showTrace : false;
+    this.showTrace = options.hasOwnProperty('showTrace') ? !!options.showTrace : false;
     this._history = [];
     this._develop = options.develop === undefined ? false : !!options.develop;
     // function to decorate the text written to the log. For linenumber etc
