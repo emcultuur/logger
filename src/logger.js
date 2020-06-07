@@ -8,6 +8,7 @@ class Logger {
 
   constructor(options = {}) {
     this._toConsole = options.toConsole !== undefined ? !!options.toConsole : true;
+    this._showTrace = options.hasOwnProperty('showTrace') ? !!options.showTrace : false;
     this._history = [];
     this._develop = options.develop === undefined ? false : !!options.develop;
     // function to decorate the text written to the log. For linenumber etc
@@ -78,6 +79,14 @@ class Logger {
     this._history.push({type: 'info', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'info'}) : msg})
     this.checkPipe('info', fieldName, msg)
   }
+  trace(msg) {
+    if (this.showTrace) {
+      if (this._toConsole) {
+        console.info(`[trace] ${msg}`);
+      }
+      this._history.push({type: 'trace',message: this.decorator ? this.decorator(msg, {type: 'info'}) : msg})
+    }
+  }
 
   get errors() {
     return this._history.filter( (log) => log.type === 'error') ;
@@ -88,9 +97,14 @@ class Logger {
   get infos() {
     return this._history.filter( (log) => log.type === 'info') ;
   }
+  get trace() {
+    return this._history.filter( (log) => log.type === 'trace');
+  }
+
   get log() {
     return this._history;
   }
+
 
   hasErrors() {
     return this.errors.length > 0 ;

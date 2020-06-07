@@ -1,6 +1,15 @@
 # Logger
 
-version: 0.4
+version: 0.5
+
+Possible loggings are:
+- error
+- warn
+- info 
+- trace
+When creating a logger the toConsole can be set to true to log the info in the console.
+The **showTrace** stores the trace messages in the buffer.
+
 
 To log exception the log.exception(error, msg is added);
 In production the exception are not send to the console. To send the info to the console use:
@@ -172,4 +181,4 @@ let logger = new LogWinston({ transports: [mail]})
 ## License
 MIT
 
-&copy; 2019-2020 EM-Cultuur
+&copy; 2019-2020 Jay McAnser
