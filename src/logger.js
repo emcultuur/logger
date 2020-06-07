@@ -81,9 +81,7 @@ class Logger {
   }
   trace(msg) {
     if (this.showTrace) {
-      if (this._toConsole) {
-        console.info(`[trace] ${msg}`);
-      }
+      console.info(`[trace] ${msg}`);
       this._history.push({type: 'trace',message: this.decorator ? this.decorator(msg, {type: 'info'}) : msg})
     }
   }
