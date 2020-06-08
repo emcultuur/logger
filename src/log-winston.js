@@ -14,7 +14,8 @@ class LogWinston extends Logger {
    * @param options
    *    -- rootDirectory string the root directory where the logs are stored
    */
-  constructor(options) {
+  constructor(options = {}) {
+
     super(options);
     this._toConsole = false
     let transports = [];
