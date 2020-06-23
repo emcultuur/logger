@@ -64,6 +64,7 @@ let log = new Logger({ transports:[
 ##  create options
 - maxMessage => limit the number of messages remberd in the log()
 - transports => array of log types
+- rootDirectory => root for all file related definitions. Default the root of the app
 
 ## Log types
 
@@ -79,7 +80,7 @@ Write the information direct to the console.
 properties:
 - level => what level to write (debug, info, warn, error)
 - colorize => should give some color to it
-
+- format => not required. possible values: 'timestamp'
 example:
 ```javascript
 let cons = {
@@ -94,14 +95,16 @@ let logger = new LogWinston({ transports: [cons]})
 Write the information to a file.
 properties:
 - level => what level to write (debug, info, warn, error)
-- filename => the full path to the file
+- filename => the path to the file. If starts with a / an absolute path otherwise relative to the
+root of the app or to the rootDirectory of the create options
+- format => not required. possible values: 'timestamp'
 
 example:
 ```javascript
 let file = {
   type: 'file',
   level: 'info',
-  filename: Path.join(__dirname, '../logging/error.log')
+  filename: error.log
 }
 let logger = new LogWinston({ transports: [file]})
 ```

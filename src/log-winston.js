@@ -5,6 +5,7 @@ const {Loggly} = require('winston-loggly-bulk');
 const SlackHook = require("winston-slack-webhook-transport");
 const Mail = require('winston-mail');
 const Path = require('path');
+const fs = require('fs');
 
 class LogWinston extends Logger {
 
@@ -28,7 +29,7 @@ class LogWinston extends Logger {
         if (trans.noEnv && trans.notEnv === process.env.NODE_ENV) {
           continue;  // skip if env does match
         }
-
+        let format = this.formatByName(`${trans.type}.${trans.format}`)
         switch (trans.type) {
           case 'memory':
             this._sendParent = true;
@@ -37,17 +38,26 @@ class LogWinston extends Logger {
           case 'console':
             transports.push(new Winston.transports.Console({
               level: trans.level === undefined ? 'info' : trans.level,
-              colorize: trans.colorize === undefined ? true : trans.colorize
+//              colorize: trans.colorize === undefined ? true : trans.colorize,
+              format: format
             }));
             break;
           case 'file':
-            if (trans.filename === undefined) {
-              throw new Error(`missing filename for file[${l}'`);
+            if (!trans.hasOwnProperty('filename')) {
+              throw new Error(`missing filename for file[${l}]`);
             }
-            let filename =  (options.rootDirectory && trans.filename[0] !== '/') ? Path.join(options.rootDirectory, trans.filename) : trans.filename;
+            let rootDir = options.hasOwnProperty('rootDirectory') ? options.rootDirectory : Path.join(__dirname, '../../..');
+            if (rootDir.substring(0, 1) !== '/') {
+              rootDir = Path.join(__dirname, '../../..', rootDir)
+            }
+            if (!fs.existsSync(rootDir)) {
+              fs.mkdirSync(rootDir, {recursive: true});
+            }
+            let filename =  Path.join(rootDir, trans.filename)
             transports.push(new Winston.transports.File({
               level: trans.level === undefined ? 'info' : trans.level,
-              filename: filename
+              filename: filename,
+              format
             }));
             break;
           case 'loggly':
@@ -61,6 +71,7 @@ class LogWinston extends Logger {
                 tags: Array.isArray(trans.tags) ? trans.tags : [trans.tags],
                 json: trans.isJson === undefined ? true : trans.isJson,
                 meta: trans.meta === undefined ? '' : trans.meta,
+                format
               }));
             }
             break;
@@ -100,6 +111,38 @@ class LogWinston extends Logger {
       });
     }
     this._maxMessage = options.maxMessage === undefined ? 0 : options.maxMessage;
+  }
+
+
+  get formats() {
+    if (!this._formats ) {
+      this._formats = {
+        'console.timestamp': Winston.format.combine(
+          Winston.format.colorize(),
+          Winston.format.timestamp(),
+          Winston.format.align(),
+          Winston.format.printf( info => `${info.timestamp} ${info.level}: ${info.message}`)
+        ),
+        'file.timestamp': Winston.format.combine(
+          Winston.format.timestamp(),
+          Winston.format.align(),
+          Winston.format.printf( info => `${info.timestamp} ${info.level}: ${info.message}`)
+        ),
+        'loggly.timestamp': Winston.format.combine(
+          Winston.format.timestamp(),
+          Winston.format.align(),
+          Winston.format.printf( info => `${info.timestamp} ${info.level}: ${info.message}`)
+        )
+      }
+    }
+    return this._formats
+  }
+
+  formatByName(name) {
+    if (this.formats[name]) {
+      return this.formats[name]
+    }
+    return undefined
   }
 
   // get winston() {

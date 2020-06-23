@@ -1,6 +1,6 @@
 {
   "name": "logger",
-  "version": "0.5.1",
+  "version": "0.7.0",
   "description": "Log information",
   "main": "index.js",
   "scripts": {
