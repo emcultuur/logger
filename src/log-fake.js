@@ -26,7 +26,9 @@ class LoggerFake extends Logger {
   info(fieldName, msg) {
     this.checkPipe('info', fieldName, msg)
   }
-
+  trace(msg) {
+    this.checkPipe('trace', fieldName, msg)
+  }
 }
 
 module.exports = LoggerFake;
