@@ -18,6 +18,14 @@ class Logger {
     this._pipe = options.pipe;
   }
 
+  /**
+   * default no root dir
+   * @return {boolean}
+   */
+  get rootDir() {
+    return false;
+  }
+
   decorate(message, type) {
     if (this._decorator) {
       return this._decorator(message, { type: type})
