@@ -49,4 +49,16 @@ describe('LogFake',  () => {
     fake.trace('message');
     assert(log.infos.length === 0, 'only shown');
   });
+
+  it('decorator', () => {
+    let log = new Logger({toConsole : false});
+    log.decorator = (msg, type) => {
+      return 'from dec'
+    }
+    let fake = new LogFake();
+    fake.pipe = log
+    fake.info('test', 'message');
+    assert(log.infos[0].fieldName === 'test', 'got the name');
+    assert(log.infos[0].message === 'from dec', 'and the message');
+  })
 })

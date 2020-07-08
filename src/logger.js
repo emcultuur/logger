@@ -14,15 +14,16 @@ class Logger {
     // function to decorate the text written to the log. For linenumber etc
     this._decorator = options.decorator;
     // connect multiple logger so we can have global and local logging
+    // the _pipe is just a logger that is to be called with the original (not decorated) params
     this._pipe = options.pipe;
   }
 
-  // decorate(message, type) {
-  //   if (this._decorator) {
-  //     return this._decorator(message, type)
-  //   }
-  //   return message;
-  // }
+  decorate(message, type) {
+    if (this._decorator) {
+      return this._decorator(message, { type: type})
+    }
+    return message;
+  }
 
   get toConsole() {
     return this._toConsole;
@@ -64,32 +65,36 @@ class Logger {
   }
 
   error(fieldName, msg) {
+    let decMsg = this.decorate(msg, 'error');
     if (this._toConsole) {
-      console.error(fieldName, msg);
+      console.error(fieldName, decMsg);
     }
-    this._history.push({type: 'error', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'error'}) : msg})
+    this._history.push({type: 'error', fieldName: fieldName, message: decMsg})
     this.checkPipe('error', fieldName, msg)
   }
 
   warn(fieldName, msg) {
+    let decMsg = this.decorate(msg, 'error');
     if (this._toConsole) {
-      console.warn(fieldName, msg);
+      console.warn(fieldName, decMsg);
     }
-    this._history.push({type: 'warn', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'warn'}) : msg})
+    this._history.push({type: 'warn', fieldName: fieldName, message: decMsg})
     this.checkPipe('warn', fieldName, msg)
   }
 
   info(fieldName, msg) {
+    let decMsg = this.decorate(msg, 'error');
     if (this._toConsole) {
-      console.info(fieldName, msg);
+      console.info(fieldName, decMsg);
     }
-    this._history.push({type: 'info', fieldName: fieldName, message: this.decorator ? this.decorator(msg, {type: 'info'}) : msg})
+    this._history.push({type: 'info', fieldName: fieldName, message: decMsg})
     this.checkPipe('info', fieldName, msg)
   }
   trace(msg) {
+    let decMsg = this.decorate(msg, 'error');
     if (this.showTrace) {
-      console.info(`[trace] ${msg}`);
-      this._history.push({type: 'trace',message: this.decorator ? this.decorator(msg, {type: 'info'}) : msg})
+      console.info(`[trace] ${decMsg}`);
+      this._history.push({type: 'trace',message: decMsg})
     }
     this.checkPipe('trace', msg)
   }

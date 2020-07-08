@@ -151,11 +151,10 @@ class LogWinston extends Logger {
   //
   _log(what, fieldName, msg) {
     let message = `${fieldName} ${msg !== undefined ? ' - ' + msg : ''}`.trim();
-    if (this.decorator) {
-      message = this.decorator(message, {type: what});
-    }
+    let decMsg = this.decorate(message, 'error');
+
     if (this._winston) {
-      this._winston.log(what, message);
+      this._winston.log(what, decMsg);
       this.checkPipe(what, fieldName, msg);
     } else  if (this._sendParent) {
       super[what]('', fieldName, msg);

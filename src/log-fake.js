@@ -3,7 +3,8 @@
  *
  * Does nothing but save the trouble for checking is the logging is active
  * version 0.0.1  Jay 2020-01-18
- * version 0.1 Jay 2020-07-08 - use pipe
+ * version 0.1 Jay 2020-07-08 - uses pipe
+ *
  */
 const Logger = require('./logger');
 
