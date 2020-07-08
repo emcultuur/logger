@@ -159,7 +159,7 @@ class LogWinston extends Logger {
 
     if (this._winston) {
       this._winston.log(what, decMsg);
-      this.checkPipe(what, fieldName, msg);
+      // this.checkPipe(what, fieldName, msg);
     }
     if (this._sendParent) {
       // this calls already checkPipe
