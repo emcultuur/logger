@@ -48,7 +48,7 @@ class LogWinston extends Logger {
             }
             this._rootDir = options.hasOwnProperty('rootDirectory') ? options.rootDirectory : Path.join(__dirname, '../../..');
             if (this._rootDir.substring(0, 1) !== '/') {
-              this._rootDir = Path.join(__dirname, '../../..', rootDir)
+              this._rootDir = Path.join(__dirname, '../../..', this._rootDir)
             }
             if (!fs.existsSync(this._rootDir)) {
               fs.mkdirSync(this._rootDir, {recursive: true});
