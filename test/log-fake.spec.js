@@ -42,4 +42,11 @@ describe('LogFake',  () => {
     assert(log.infos[0].message === 'message', 'and the message');
   });
 
+  it('trace', () => {
+    let log = new Logger({toConsole : false, showTrace: true});
+    let fake = new LogFake();
+    fake.pipe = log
+    fake.trace('message');
+    assert(log.infos.length === 0, 'only shown');
+  });
 })

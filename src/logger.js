@@ -84,7 +84,7 @@ class Logger {
       console.info(`[trace] ${msg}`);
       this._history.push({type: 'trace',message: this.decorator ? this.decorator(msg, {type: 'info'}) : msg})
     }
-    this.checkPipe('trace', fieldName, msg)
+    this.checkPipe('trace', msg)
   }
 
   get errors() {
