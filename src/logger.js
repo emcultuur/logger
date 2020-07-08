@@ -17,6 +17,13 @@ class Logger {
     this._pipe = options.pipe;
   }
 
+  // decorate(message, type) {
+  //   if (this._decorator) {
+  //     return this._decorator(message, type)
+  //   }
+  //   return message;
+  // }
+
   get toConsole() {
     return this._toConsole;
   }
