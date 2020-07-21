@@ -4,6 +4,7 @@
 
 version 0.9
 - auto change transports to [transports]
+- fix: empty message in super.log
 
 version 0.4.0
 - added toConsole property

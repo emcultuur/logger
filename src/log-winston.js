@@ -166,7 +166,7 @@ class LogWinston extends Logger {
     }
     if (this._sendParent) {
       // this calls already checkPipe
-      super[what]('', fieldName, msg);
+      super[what](fieldName, msg);
     } else {
       this.checkPipe(what, fieldName, msg);
     }
