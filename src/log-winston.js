@@ -21,6 +21,9 @@ class LogWinston extends Logger {
     this._toConsole = false
     let transports = [];
     if (options.transports) {
+      if (!Array.isArray(options.transports)) {
+        options.transports = [options.transports]
+      }
       for (let l = 0; l < options.transports.length; l++) {
         let trans = options.transports[l];
         if (trans.env && trans.env !== process.env.NODE_ENV) {

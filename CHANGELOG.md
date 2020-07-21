@@ -2,6 +2,9 @@
 
 # Logger Revisions
 
+version 0.9
+- auto change transports to [transports]
+
 version 0.4.0
 - added toConsole property
 
