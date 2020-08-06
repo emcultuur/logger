@@ -7,7 +7,8 @@ version 0.10 - 20208-08-06
 - transport.file: targetFile is full path to file
 - isDebugActive
 - options.debug to active the debugger
-- level are limited to error, warn, info, debug'
+- level are limited to error, warn, info, debug
+- rootDir use pipe to find a directory
 
 version 0.9
 - auto change transports to [transports]

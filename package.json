@@ -11,13 +11,13 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^8.0.1"
+    "mocha": "^8.1.1"
   },
   "dependencies": {
     "minimist": ">=1.2.2",
     "winston": "^3.3.3",
     "winston-loggly-bulk": "^3.1.0",
     "winston-mail": "^2.0.0",
-    "winston-slack-webhook-transport": "^1.2.4"
+    "winston-slack-webhook-transport": "^1.2.5"
   }
 }
