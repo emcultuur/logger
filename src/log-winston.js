@@ -138,7 +138,7 @@ class LogWinston extends Logger {
   }
 
   get rootDir() {
-    return this._rootDir ? this.rootDir : this.pipe ? this.pipe.rootDir : false;
+    return this._rootDir ? this._rootDir : this.pipe ? this.pipe.rootDir : false;
   }
 
   get formats() {
