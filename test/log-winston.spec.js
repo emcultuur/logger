@@ -136,6 +136,7 @@ describe('log-winston', () => {
     logW.debug('does debug work');
     assert.equal(logW.traces.length, 1);
     await logW.end();
+
     if (fs.existsSync(specs.transports[1].targetFilename)) {
       assert.isTrue((fs.statSync(specs.transports[1].targetFilename)).size > 0)
     }
