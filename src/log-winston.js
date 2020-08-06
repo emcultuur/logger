@@ -162,7 +162,7 @@ class LogWinston extends Logger {
   // }
   //
   _log(what, fieldName, msg) {
-    let message = fieldName && msg ? `${fieldName} - ${msg}` : `${fieldName}${msg}`;
+    let message = fieldName && msg ? `${fieldName} - ${msg}` : `${fieldName} ? ${fieldName} : ${msg} ? ${msg} : (no message)`;
     let decMsg = this.decorate(message, 'error');
 
     if (this._winston) {
