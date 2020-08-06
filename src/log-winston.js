@@ -208,7 +208,7 @@ class LogWinston extends Logger {
     this._log('trace', msg);
   }
   debug(msg) {
-    this._log('debug', '', msg);
+    this._log('debug',  msg);
   }
 
   _sleep(ms) {
