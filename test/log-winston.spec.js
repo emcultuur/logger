@@ -4,6 +4,7 @@ const Path = require('path');
 
 const LogWinston = require('../index').LogWinston;
 const Logger = require('../index');
+const fs = require('fs');
 
 describe('log-winston', () => {
 
@@ -110,7 +111,34 @@ describe('log-winston', () => {
     logW.info('some field', 'some more');
     assert.equal(logW.log.length, 2, 'has two message');
     assert.equal(log.log.length, 1, 'has one message');
+  })
 
+  it('trace to file', async () => {
+    let log = new Logger({showTrace: true});
+    let specs = {
+      showTrace: true,
+      rootDirectory: `${__dirname}/tmp` ,
+      transports: [
+        {
+          type: 'memory'
+        },
+        {
+          type: "file",
+          filename: "test.file.log",
+          level: "debug"
+        }
+      ]
+    };
+    let logW = new LogWinston( specs);
+    if (fs.existsSync(specs.transports[1].targetFilename)) {
+      fs.unlinkSync(specs.transports[1].targetFilename);
+    }
+    logW.debug('does debug work');
+    assert.equal(logW.traces.length, 1);
+    await logW.end();
+    if (fs.existsSync(specs.transports[1].targetFilename)) {
+      assert.isTrue((fs.statSync(specs.transports[1].targetFilename)).size > 0)
+    }
   })
 
 });

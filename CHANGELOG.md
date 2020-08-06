@@ -2,6 +2,10 @@
 
 # Logger Revisions
 
+version 0.10 - 20208-08-06
+- level: debug
+- transport.file: targetFile is full path to file
+
 version 0.9
 - auto change transports to [transports]
 - fix: empty message in super.log

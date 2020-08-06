@@ -62,6 +62,11 @@ class LogWinston extends Logger {
               filename: filename,
               format
             }));
+            try {
+              // if write proteced this will create an error
+              trans.targetFilename = filename;
+            } catch(e) {
+            }
             break;
           case 'loggly':
             if (trans.token === undefined) {
@@ -157,7 +162,7 @@ class LogWinston extends Logger {
   // }
   //
   _log(what, fieldName, msg) {
-    let message = `${fieldName} ${msg !== undefined ? ' - ' + msg : ''}`.trim();
+    let message = fieldName && msg ? `${fieldName} - ${msg}` : `${fieldName}${msg}`;
     let decMsg = this.decorate(message, 'error');
 
     if (this._winston) {
@@ -166,7 +171,11 @@ class LogWinston extends Logger {
     }
     if (this._sendParent) {
       // this calls already checkPipe
-      super[what](fieldName, msg);
+      if (what === 'debug' || what === 'trace') {
+        super[what](msg);
+      } else {
+        super[what](fieldName, msg);
+      }
     } else {
       this.checkPipe(what, fieldName, msg);
     }
@@ -195,8 +204,30 @@ class LogWinston extends Logger {
   info(fieldName, msg) {
     this._log('info', fieldName, msg);
   }
+  trace(msg) {
+    this._log('trace', msg);
+  }
   debug(msg) {
     this._log('debug', '', msg);
+  }
+
+  _sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  async end() {
+    return new Promise((resolve, reject) => {
+      this._winston.on('finish', () => {
+        return this._sleep(1).then(() => {
+          resolve();
+        })
+      });
+      this._winston.end();
+    });
+    // return new Promise( (resolve) => {
+    //   this._winston.end(() => {
+    //     resolve();
+    //   });
+    // })
   }
 }
 

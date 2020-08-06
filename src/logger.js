@@ -82,7 +82,7 @@ class Logger {
   }
 
   warn(fieldName, msg) {
-    let decMsg = this.decorate(msg, 'error');
+    let decMsg = this.decorate(msg, 'warn');
     if (this._toConsole) {
       console.warn(fieldName, decMsg);
     }
@@ -91,7 +91,7 @@ class Logger {
   }
 
   info(fieldName, msg) {
-    let decMsg = this.decorate(msg, 'error');
+    let decMsg = this.decorate(msg, 'info');
     if (this._toConsole) {
       console.info(fieldName, decMsg);
     }
@@ -99,12 +99,20 @@ class Logger {
     this.checkPipe('info', fieldName, msg)
   }
   trace(msg) {
-    let decMsg = this.decorate(msg, 'error');
+    let decMsg = this.decorate(msg, 'trace');
     if (this.showTrace) {
       console.info(`[trace] ${decMsg}`);
-      this._history.push({type: 'trace',message: decMsg})
+      this._history.push({type: 'trace', message: decMsg})
     }
     this.checkPipe('trace', msg)
+  }
+  debug(msg) {
+    let decMsg = this.decorate(msg, 'trace');
+    if (this.showTrace) {
+      console.info(`[trace] ${decMsg}`);
+      this._history.push({type: 'trace', message: decMsg})
+    }
+    this.checkPipe('debug', msg)
   }
 
   get errors() {
@@ -140,6 +148,9 @@ class Logger {
   }
 
 
+  end() {
+
+  }
 }
 
 module.exports = Logger;

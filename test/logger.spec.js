@@ -34,6 +34,13 @@ describe('logger',  () => {
     assert(log.infos[0].message === 'message', 'and the message');
   });
 
+  it('trace', () => {
+    let log = new Logger({showTrace: true});
+    log.trace('message');
+    assert(log.traces.length === 1, 'just one');
+    assert(log.traces[0].message === 'message', 'and the message');
+  });
+
   it('combine', () => {
     let log = new Logger({toConsole : false});
     log.info('test', 'message');
@@ -59,7 +66,7 @@ describe('logger',  () => {
     // should NOT write to console
     log.exception(new Error('nothing is wrong'));
     assert(log.errors.length === 1, 'has one');
-   console.log('>>>>> should write an error to console. Do if you see the error, its ok');
+    console.log('>>>>> should write an error to console. So if you see the error, its ok');
     logDev.exception(new Error('some is wrong'));
     assert(log.errors.length === 1, 'has one');
   });
