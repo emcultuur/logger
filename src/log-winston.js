@@ -40,7 +40,7 @@ class LogWinston extends Logger {
             break;
           case 'console':
             transports.push(new Winston.transports.Console({
-              level: trans.level === undefined ? 'info' : trans.level,
+              level: this._convertLevel(trans.level === undefined ? 'info' : trans.level),
 //              colorize: trans.colorize === undefined ? true : trans.colorize,
               format: format
             }));
@@ -58,7 +58,7 @@ class LogWinston extends Logger {
             }
             let filename =  Path.join(this._rootDir, trans.filename)
             transports.push(new Winston.transports.File({
-              level: trans.level === undefined ? 'info' : trans.level,
+              level: this._convertLevel( trans.level === undefined ? 'info' : trans.level),
               filename: filename,
               format
             }));
@@ -73,7 +73,7 @@ class LogWinston extends Logger {
               console.warn('missing token for loggly');
             } else {
               transports.push(new Loggly({
-                level: trans.level === undefined ? 'info' : trans.level,
+                level: this._convertLevel(trans.level === undefined ? 'info' : trans.level),
                 token: trans.token,
                 subdomain: trans.subdomain,
                 tags: Array.isArray(trans.tags) ? trans.tags : [trans.tags],
@@ -88,7 +88,7 @@ class LogWinston extends Logger {
               webhookUrl: trans.url,
               channel: trans.channel === undefined ? 'logger' : trans.channel,
               username: trans.username === undefined ? 'logger' : trans.username,
-              level: trans.level === undefined ? 'info' : trans.level,
+              level: this._convertLevel(trans.level === undefined ? 'info' : trans.level),
             }));
             break;
           case 'mail':
@@ -96,7 +96,7 @@ class LogWinston extends Logger {
               console.warn(`missing host or to in log.mail`);
             } else {
               transports.push(new Mail({
-                level: trans.level === undefined ? 'info' : trans.level,
+                level: this._convertLevel( trans.level === undefined ? 'info' : trans.level),
                 to: trans.to,
                 from: trans.from === undefined ? 'info@example.com' : trans.from,
                 host: trans.host,
@@ -121,6 +121,21 @@ class LogWinston extends Logger {
     this._maxMessage = options.maxMessage === undefined ? 0 : options.maxMessage;
   }
 
+  _convertLevel(level) {
+    switch (level) {
+      case 'error' : return 'error';
+      case 'warn' :
+      case 'warning': return 'warn';
+      case 'info': return 'info';
+      case 'trace':
+      case 'exception':
+      case 'debug': return 'debug';
+      case 'silly': return 'dubug';
+      default:
+        console.warn(`[winston] unknown level: ${level}. using info`);
+        return info;
+    }
+  }
 
   get rootDir() {
     return this._rootDir
