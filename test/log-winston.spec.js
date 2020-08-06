@@ -94,7 +94,7 @@ describe('log-winston', () => {
 
 
   it('pipe', () => {
-    let log = new Logger({toConsole: false});
+    let log = new Logger({toConsole: false, debug: true});
     let logW = new LogWinston( {
       transports: [
        {
@@ -111,12 +111,13 @@ describe('log-winston', () => {
     logW.info('some field', 'some more');
     assert.equal(logW.log.length, 2, 'has two message');
     assert.equal(log.log.length, 1, 'has one message');
+    assert.isTrue(log.isDebugActive(), 'in the pipe')
   })
 
   it('trace to file', async () => {
     let log = new Logger({showTrace: true});
     let specs = {
-      showTrace: true,
+      debug: true,
       rootDirectory: `${__dirname}/tmp` ,
       transports: [
         {
@@ -135,8 +136,9 @@ describe('log-winston', () => {
     }
     logW.debug('does debug work');
     assert.equal(logW.traces.length, 1);
-    await logW.end();
+    assert.isTrue(logW.isDebugActive())
 
+    await logW.end();
     if (fs.existsSync(specs.transports[1].targetFilename)) {
       assert.isTrue((fs.statSync(specs.transports[1].targetFilename)).size > 0)
     }

@@ -9,6 +9,7 @@ class Logger {
   constructor(options = {}) {
     this._toConsole = options.toConsole !== undefined ? !!options.toConsole : true;
     this.showTrace = options.hasOwnProperty('showTrace') ? !!options.showTrace : false;
+    this._isDebugActive = options.hasOwnProperty('debug') ? !!options.debug : false;
     this._history = [];
     this._develop = options.develop === undefined ? false : !!options.develop;
     // function to decorate the text written to the log. For linenumber etc
@@ -108,7 +109,7 @@ class Logger {
   }
   debug(msg) {
     let decMsg = this.decorate(msg, 'trace');
-    if (this.showTrace) {
+    if (this._isDebugActive) {
       console.info(`[trace] ${decMsg}`);
       this._history.push({type: 'trace', message: decMsg})
     }
@@ -143,14 +144,17 @@ class Logger {
     return this._history.length > 0;
   }
 
+  isDebugActive() {
+    return this._isDebugActive || (this._pipe ? this._pipe.isDebugActive() : false);
+  }
   clear() {
     this._history = [];
   }
 
-
-  end() {
-
+  async end() {
   }
+
+
 }
 
 module.exports = Logger;

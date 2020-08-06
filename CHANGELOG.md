@@ -5,6 +5,8 @@
 version 0.10 - 20208-08-06
 - level: debug
 - transport.file: targetFile is full path to file
+- isDebugActive
+- options.debug to active the debugger
 
 version 0.9
 - auto change transports to [transports]
