@@ -102,7 +102,6 @@ class Logger {
   trace(msg) {
     let decMsg = this.decorate(msg, 'trace');
     if (this.showTrace) {
-      console.info(`[trace] ${decMsg}`);
       this._history.push({type: 'trace', message: decMsg})
     }
     this.checkPipe('trace', msg)
@@ -110,7 +109,6 @@ class Logger {
   debug(msg) {
     let decMsg = this.decorate(msg, 'trace');
     if (this._isDebugActive) {
-      console.info(`[trace] ${decMsg}`);
       this._history.push({type: 'trace', message: decMsg})
     }
     this.checkPipe('debug', msg)
