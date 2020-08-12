@@ -194,7 +194,7 @@ class LogWinston extends Logger {
     if (this._sendParent) {
       // this calls already checkPipe
       if (what === 'debug' || what === 'trace') {
-        super[what](msg);
+        super[what](msg ? msg : fieldName);
       } else {
         super[what](fieldName, msg);
       }

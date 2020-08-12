@@ -1,6 +1,8 @@
 [home](../README.md)
 
 # Logger Revisions
+## 2020-08-12
+- fix: debug show empty message
 
 version 0.10 - 20208-08-06
 - level: debug
