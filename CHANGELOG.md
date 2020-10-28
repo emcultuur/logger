@@ -1,6 +1,10 @@
 [home](../README.md)
 
 # Logger Revisions
+
+## 2020-10-28
+- fix: throws error if unable to create directory 
+
 ## 2020-08-12
 - fix: debug show empty message
 

@@ -54,7 +54,12 @@ class LogWinston extends Logger {
               this._rootDir = Path.join(__dirname, '../../..', this._rootDir)
             }
             if (!fs.existsSync(this._rootDir)) {
-              fs.mkdirSync(this._rootDir, {recursive: true});
+              try {
+                fs.mkdirSync(this._rootDir, {recursive: true});
+              } catch(e) {
+                console.error(`could not create directory ${this._rootDir}. skipping log`);
+                continue;
+              }
             }
             let filename =  Path.join(this._rootDir, trans.filename)
             transports.push(new Winston.transports.File({
